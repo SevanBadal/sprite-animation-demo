@@ -1,0 +1,134 @@
+[gd_scene load_steps=11 format=3 uid="uid://vasolx46repg"]
+
+[ext_resource type="Texture2D" uid="uid://b5jwp55pi7703" path="res://assets/player-idle.png" id="1_go4uc"]
+[ext_resource type="Texture2D" uid="uid://dl1yocqi4ec5x" path="res://assets/player-run.png" id="2_ceusa"]
+
+[sub_resource type="Gradient" id="Gradient_vn2bq"]
+offsets = PackedFloat32Array(0, 0.692308)
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_ln7mq"]
+gradient = SubResource("Gradient_vn2bq")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+
+[sub_resource type="Animation" id="Animation_nn8ry"]
+resource_name = "idle"
+length = 2.7
+loop_mode = 1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("IdleCharacter:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1, 1.1, 1.2, 1.3, 1.4, 1.5, 1.6, 1.7, 1.8, 1.9, 2, 2.1, 2.2, 2.3, 2.4, 2.5, 2.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26]
+}
+
+[sub_resource type="Animation" id="Animation_7fdtd"]
+length = 0.001
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_i3j2l"]
+_data = {
+"RESET": SubResource("Animation_7fdtd"),
+"idle": SubResource("Animation_nn8ry")
+}
+
+[sub_resource type="Animation" id="Animation_tnqx5"]
+resource_name = "running"
+length = 0.8
+loop_mode = 1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6, 7]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_hj2e4"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_n571c"]
+_data = {
+"RESET": SubResource("Animation_hj2e4"),
+"running": SubResource("Animation_tnqx5")
+}
+
+[node name="Character" type="Node2D"]
+texture_filter = 1
+position = Vector2(4, 0)
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+position = Vector2(7, -24)
+color = Color(1, 0.392157, 0.32549, 1)
+energy = 1.32
+texture = SubResource("GradientTexture2D_ln7mq")
+
+[node name="IdleCharacter" type="Sprite2D" parent="."]
+texture = ExtResource("1_go4uc")
+hframes = 27
+frame = 26
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="IdleCharacter"]
+root_node = NodePath("../..")
+libraries = {
+"": SubResource("AnimationLibrary_i3j2l")
+}
+
+[node name="RunningCharacter" type="Sprite2D" parent="."]
+position = Vector2(-4, 0)
+texture = ExtResource("2_ceusa")
+hframes = 8
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="RunningCharacter"]
+libraries = {
+"": SubResource("AnimationLibrary_n571c")
+}
