@@ -294,6 +294,7 @@ _data = {
 script = ExtResource("1_m70qm")
 speed = 150
 gravity = 20
+jump_force = null
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(3, -16)

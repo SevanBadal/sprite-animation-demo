@@ -1,17 +1,6 @@
-[gd_scene load_steps=6 format=3 uid="uid://cgvtxyuhh3nad"]
+[gd_scene load_steps=19 format=3 uid="uid://cgvtxyuhh3nad"]
 
 [ext_resource type="PackedScene" uid="uid://dtm0kfjgwomjv" path="res://scenes/player.tscn" id="1_lfgfk"]
-
-[sub_resource type="Gradient" id="Gradient_nnsk1"]
-offsets = PackedFloat32Array(0.0668896, 0.67893)
-colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_rwgxs"]
-gradient = SubResource("Gradient_nnsk1")
-width = 200
-height = 200
-fill = 1
-fill_from = Vector2(0.491453, 0.487179)
 
 [sub_resource type="QuadMesh" id="QuadMesh_c5cma"]
 size = Vector2(300, 30)
@@ -19,19 +8,78 @@ size = Vector2(300, 30)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_c2hrr"]
 size = Vector2(300, 30)
 
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_rwgxs"]
+polygon = PackedVector2Array(287, -50, 461, -50, 461, -21, 161, -20, 161, -51)
+
+[sub_resource type="QuadMesh" id="QuadMesh_rwgxs"]
+size = Vector2(2, 20)
+
+[sub_resource type="QuadMesh" id="QuadMesh_nnsk1"]
+size = Vector2(2, 50)
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_rwgxs"]
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_nnsk1"]
+cull_mode = 2
+polygon = PackedVector2Array(-1, -78, 1, -78, 1, 25, -1, 25)
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_4wyf3"]
+cull_mode = 1
+polygon = PackedVector2Array(442, 0, 695, 0, 695, 208, 0, 208, 0, 1)
+
+[sub_resource type="QuadMesh" id="QuadMesh_4wyf3"]
+size = Vector2(10, 2)
+
+[sub_resource type="QuadMesh" id="QuadMesh_k0juu"]
+size = Vector2(10, 2)
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_71j4m"]
+specular_color = Color(0.255003, 0.205345, 0.100278, 1)
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_qfnet"]
+polygon = PackedVector2Array(-5, -1, -5, 1, 5, 1, 5, -1)
+
+[sub_resource type="Gradient" id="Gradient_nnsk1"]
+offsets = PackedFloat32Array(0.157191, 0.77592)
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_rwgxs"]
+gradient = SubResource("Gradient_nnsk1")
+width = 1000
+height = 500
+fill = 1
+fill_from = Vector2(0.0213675, 0.0213675)
+fill_to = Vector2(1, 1)
+
+[sub_resource type="QuadMesh" id="QuadMesh_71j4m"]
+size = Vector2(2, 10)
+
+[sub_resource type="Gradient" id="Gradient_rwgxs"]
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_4wyf3"]
+gradient = SubResource("Gradient_rwgxs")
+width = 200
+height = 200
+fill = 1
+fill_from = Vector2(0.504274, 0.487179)
+fill_to = Vector2(0.84188, 0.230769)
+
 [node name="World" type="Node2D"]
 
-[node name="CanvasModulate" type="CanvasModulate" parent="."]
-color = Color(0.450648, 0.450648, 0.450648, 1)
+[node name="ColorRect" type="ColorRect" parent="."]
+offset_right = 695.0
+offset_bottom = 209.0
+color = Color(0.231373, 0.454902, 0.231373, 1)
 
-[node name="PointLight2D" type="PointLight2D" parent="."]
-position = Vector2(283, 65)
-energy = 2.1
-shadow_enabled = true
-texture = SubResource("GradientTexture2D_rwgxs")
+[node name="DirectionalLight2D" type="DirectionalLight2D" parent="."]
+energy = 0.68
+blend_mode = 1
+height = 0.37
+max_distance = 5557.0
 
 [node name="Player" parent="." instance=ExtResource("1_lfgfk")]
-position = Vector2(322, 101)
+position = Vector2(324, 97)
 
 [node name="Platform2" type="StaticBody2D" parent="."]
 position = Vector2(466, 118)
@@ -52,3 +100,83 @@ mesh = SubResource("QuadMesh_c5cma")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Platform"]
 shape = SubResource("RectangleShape2D_c2hrr")
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="Platform"]
+occluder = SubResource("OccluderPolygon2D_rwgxs")
+
+[node name="MeshInstance2D2" type="MeshInstance2D" parent="."]
+modulate = Color(0.233657, 0.179223, 0.0449662, 1)
+position = Vector2(441, 26.5)
+scale = Vector2(1, 2.65)
+mesh = SubResource("QuadMesh_rwgxs")
+
+[node name="MeshInstance2D" type="MeshInstance2D" parent="."]
+modulate = Color(0.0313726, 0.501961, 1, 1)
+self_modulate = Color(0.262745, 1, 0.992157, 1)
+position = Vector2(441, 78)
+mesh = SubResource("QuadMesh_nnsk1")
+texture = SubResource("CanvasTexture_rwgxs")
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="MeshInstance2D"]
+occluder = SubResource("OccluderPolygon2D_nnsk1")
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="."]
+occluder = SubResource("OccluderPolygon2D_4wyf3")
+
+[node name="MeshInstance2D3" type="MeshInstance2D" parent="."]
+modulate = Color(0.255659, 0.255659, 0.255659, 1)
+position = Vector2(447, 33)
+mesh = SubResource("QuadMesh_4wyf3")
+
+[node name="MeshInstance2D" type="MeshInstance2D" parent="MeshInstance2D3"]
+position = Vector2(5, 5)
+rotation = 0.865152
+mesh = SubResource("QuadMesh_k0juu")
+texture = SubResource("CanvasTexture_71j4m")
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="MeshInstance2D3/MeshInstance2D"]
+occluder = SubResource("OccluderPolygon2D_qfnet")
+
+[node name="MeshInstance2D2" type="MeshInstance2D" parent="MeshInstance2D3"]
+mesh = SubResource("QuadMesh_k0juu")
+texture = SubResource("CanvasTexture_71j4m")
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="MeshInstance2D3/MeshInstance2D2"]
+occluder = SubResource("OccluderPolygon2D_qfnet")
+
+[node name="MeshInstance2D3" type="MeshInstance2D" parent="MeshInstance2D3"]
+position = Vector2(9, 0)
+rotation = 0.48098
+mesh = SubResource("QuadMesh_k0juu")
+texture = SubResource("CanvasTexture_71j4m")
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="MeshInstance2D3/MeshInstance2D3"]
+occluder = SubResource("OccluderPolygon2D_qfnet")
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+position = Vector2(456, 37)
+energy = 1.09
+shadow_enabled = true
+texture = SubResource("GradientTexture2D_rwgxs")
+
+[node name="Platform3" type="StaticBody2D" parent="."]
+position = Vector2(607, 194)
+
+[node name="MeshInstance2D" type="MeshInstance2D" parent="Platform3"]
+modulate = Color(0.557692, 0.0785766, 0.454812, 1)
+mesh = SubResource("QuadMesh_c5cma")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Platform3"]
+shape = SubResource("RectangleShape2D_c2hrr")
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="Platform3"]
+position = Vector2(-312, 35)
+occluder = SubResource("OccluderPolygon2D_rwgxs")
+
+[node name="MeshInstance2D4" type="MeshInstance2D" parent="."]
+position = Vector2(497, 138)
+mesh = SubResource("QuadMesh_71j4m")
+
+[node name="PointLight2D" type="PointLight2D" parent="MeshInstance2D4"]
+shadow_enabled = true
+texture = SubResource("GradientTexture2D_4wyf3")
