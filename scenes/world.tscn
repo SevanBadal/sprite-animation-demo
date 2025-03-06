@@ -1,0 +1,54 @@
+[gd_scene load_steps=6 format=3 uid="uid://cgvtxyuhh3nad"]
+
+[ext_resource type="PackedScene" uid="uid://dtm0kfjgwomjv" path="res://scenes/player.tscn" id="1_lfgfk"]
+
+[sub_resource type="Gradient" id="Gradient_nnsk1"]
+offsets = PackedFloat32Array(0.0668896, 0.67893)
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_rwgxs"]
+gradient = SubResource("Gradient_nnsk1")
+width = 200
+height = 200
+fill = 1
+fill_from = Vector2(0.491453, 0.487179)
+
+[sub_resource type="QuadMesh" id="QuadMesh_c5cma"]
+size = Vector2(300, 30)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_c2hrr"]
+size = Vector2(300, 30)
+
+[node name="World" type="Node2D"]
+
+[node name="CanvasModulate" type="CanvasModulate" parent="."]
+color = Color(0.450648, 0.450648, 0.450648, 1)
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+position = Vector2(283, 65)
+energy = 2.1
+shadow_enabled = true
+texture = SubResource("GradientTexture2D_rwgxs")
+
+[node name="Player" parent="." instance=ExtResource("1_lfgfk")]
+position = Vector2(322, 101)
+
+[node name="Platform2" type="StaticBody2D" parent="."]
+position = Vector2(466, 118)
+
+[node name="MeshInstance2D" type="MeshInstance2D" parent="Platform2"]
+modulate = Color(0.557692, 0.0785766, 0.454812, 1)
+mesh = SubResource("QuadMesh_c5cma")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Platform2"]
+shape = SubResource("RectangleShape2D_c2hrr")
+
+[node name="Platform" type="StaticBody2D" parent="."]
+position = Vector2(155, 153)
+
+[node name="MeshInstance2D" type="MeshInstance2D" parent="Platform"]
+modulate = Color(0.557692, 0.0785766, 0.454812, 1)
+mesh = SubResource("QuadMesh_c5cma")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Platform"]
+shape = SubResource("RectangleShape2D_c2hrr")
